@@ -1,0 +1,10 @@
+.idea/
+node_modules/
+config.json
+RID
+sqs-test.iml
+launch.json
+example-queue-stub-policy
+.vscode
+.DS_Store
+

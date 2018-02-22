@@ -1,0 +1,26 @@
+{
+  "name": "aws-s3-demo",
+  "version": "1.0.0",
+  "description": "## What is this? Demo code that excercises the AWS SNS & SQS functionality via the API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajyounguk/aws-s3-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajyounguk/aws-s3-demo/issues"
+  },
+  "homepage": "https://github.com/ajyounguk/aws-s3-demo#readme",
+  "dependencies": {
+    "aws-sdk": "^2.200.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "uuid": "^3.2.1"
+  }
+}
