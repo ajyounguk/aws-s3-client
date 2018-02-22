@@ -27,15 +27,18 @@
 
 
 <!-- 3. Upload -->
-<form  method="POST" action="/object">
+<form  method="POST" action="/bucket/file">
     <br>
     <fieldset>
-        <legend>3. Upload Object</legend>
-        <span class="required" >Object Name: </span><br>
-        <input  size=100 placeholder ="Object Name" id ="objname" type="text" name ="objname"  value="" required>
+        <legend>3. Upload File</legend>
+        <span class="required" >Bucket Name: </span><br>
+        <input  size=100 placeholder ="Bucket Name" id ="bucketname" type="text" name ="bucketname"  value="" required>
+        <br>
+        <span class="required" >File Name: </span><br>
+        <input  size=100 placeholder ="File Name" id ="filename" type="text" name ="filename"  value="" required>
         <br><br><input   type="submit" value="Upload">
     </fieldset>
-    </form>
+</form>
 
 
 <!-- 4. List Objects -->    

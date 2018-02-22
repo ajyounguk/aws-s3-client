@@ -44,8 +44,11 @@ app.post('/bucket', function (req, res) {
       
         if (err) {
             console.log('!!!(create bucket) Error creating bucket', err)
+            res.status(500)
+            res.end()
         } else {
             console.log('(create bucket) Created bucket', req.body.bucketname)
+            res.status(200)
             res.send(data)
         }
        
@@ -54,43 +57,37 @@ app.post('/bucket', function (req, res) {
 
 
 // 2. Upload (local) file
-app.post('bucket/file', function () (req, res){
+app.post('/bucket/file', function  (req, res) {
 
     var params = {
         Bucket: req.body.bucketname, Key: '', Body: ''};
 
-    var filestream = fs.createReadStream(__dirname + req.body.filename)
+    var filestream = fs.createReadStream(__dirname + '/'+ req.body.filename)
 
+    filestream.on('error', function (err) {
+        console.log('!!!!(upload file) Error',err)
+    })
 
+    params.Body = filestream
+    params.Key = req.body.filename
 
+    s3.upload (params, function (err, data) {
 
+        if (err) {
+            console.log('!!!(upload to bucket) Error uploading file', err)
+            res.status(500)
+            res.end()
+        } else {
+            console.log('(uploda to bucket) File', req.body.filename, 'uploaded to s3')
+            res.status(200)
+            res.send(data)
+        }
+
+    })
 })
 
 
 
-// call S3 to retrieve upload file to specified bucket
-var uploadParams = {Bucket: process.argv[2], Key: '', Body: ''};
-var file = process.argv[3];
-
-var fs = require('fs');
-var fileStream = fs.createReadStream(file);
-fileStream.on('error', function(err) {
-  console.log('File Error', err);
-});
-uploadParams.Body = fileStream;
-
-var path = require('path');
-uploadParams.Key = path.basename(file);
-
-// call S3 to retrieve upload file to specified bucket
-s3.upload (uploadParams, function (err, data) {
-  if (err) {
-    console.log("Error", err);
-  } if (data) {
-    console.log("Upload Success", data.Location);
-  }
-});
-        
 
 /* // CODE TO BE DELETED - FOR REFERENCE ONLY
 // 1. create Topic - input = topic name
