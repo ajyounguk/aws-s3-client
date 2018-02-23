@@ -1,51 +1,30 @@
-## AWS SQS & SNS NodeJS Example / Demo code
+## AWS S3 NodeJS Example / Demo code
 
 ## What is this?
-Demo code that excercises the AWS SNS & SQS functionality via the API
+Demo code that excercises the AWS S3 functionality via the API
 
 ## Contains
-- SQS server, with endpoints to trigger the relevant SQS API (sqs-test.js)
-- SNS server, with endpoints to trigger the relevant SNS API (sns-test.js)
+- S3 server, with endpoints to trigger the relevant S3 API (app.js)
+- Test S3 HTML entry form (after running S3 server, point browser at localhost:9000)
 
-- Test SQS HTML entry form (after running SQS server, poin browser at localhost:8888)
-- Test SNS HTML entry form (after running SQS server, poin browser at localhost:8888)
 
-### SQS Functionality:
-- Create SQS queues
-- List SQS queues
-- Get queue URL
-- Get queue attributes
-- Send message to queue
-- Get (receive) message from queue
-- Delete message from queue
-- Purge all messages from queue
-- Delete queues
-- Set queue attributes (namely policy for SNS subcription)
-
-### SNS Functionality:
-- Create topics
-- Add queue subscription
-- Add email subscription
-- Send message to topic
-- List topics
-- Delete topics
-- List subscriptions
-- Delete subscriptions
+### S3 Functionality:
+- Create Bucket
+- List Buckets
+- Upload (server local) file/obj to bucket
+- List files/objs in bucket
+- Delete file/obj
+- Delete bucket
 
 ## Acknowledgements
-Based on code from AWS SQS examples at: https://www.youtube.com/watch?v=4Z74luiE2bg\ and https://github.com/andrewpuch/aws-sqs-node-js-examples
-
-Mark Allen's SNS code here: https://github.com/markcallen/snssqs/blob/master/create.js
-
 CSS template inspired from: https://www.sanwebe.com/2014/08/css-html-forms-designs
 
 
-## Installation overview
-
-  create an AWS EC2 or local ubuntu instance.
-
+## Installation overview\
+Mac - install node :)
+or
+Linux - create an AWS EC2 or local ubuntu instance.
 update it with:
-
 ```
 sudo su
 apt-get update
@@ -56,36 +35,36 @@ apt-get install nodejs npm git -y
 ln -s /usr/bin/nodejs /usr/bin/node
 ```
 
+
+
 clone the repo and install it:
 
 ```
-git clone https://github.com/ajyounguk/aws-sqs-test
-cd aws-sqs-test
+git clone https://github.com/ajyounguk/aws-s3-demo
+cd aws-s3-demo
 npm install
 ```
 
 
 ## Credentials
-Copy the configuration details and add your AWS creds.
+Copy the configuration file and add your AWS creds to it:
 ```
 cp config-sample.json config.json
 ```
 
-(IAM user creds with group policy = AmazonSQSFullAccess, AmazonSNSFullAccess works)
+(IAM user creds with group policy = AmazonS3SFullAccess works)
 
 
 ## How to run it
 run the server:
 
 ```
-node sqs-test-server
-node sns-test-server
+node app.js
 ```
 
-point your browser at the EC2 instnace on port 8888 (SQS) and 8889 (SNS) to load the test harness
+point browser at (localIP/remoteIP) port 8888 (SQS) to load the test harness
 
-For more information on SNS and SQS:
+For more information on S3
 
-https://aws.amazon.com/sns/
-https://aws.amazon.com/sqs/
+https://aws.amazon.com/s3/
 
