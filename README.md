@@ -20,7 +20,7 @@ Demo code that excercises the AWS S3 functionality via the API
 CSS template inspired from: https://www.sanwebe.com/2014/08/css-html-forms-designs
 
 
-## Installation overview\
+## Installation overview
 Mac - install node :)
 or
 Linux - create an AWS EC2 or local ubuntu instance.
