@@ -21,16 +21,16 @@
 <br>
 <fieldset>
     <legend>2. List Buckets</legend>
-    <br><input   type="submit" value="List Buckets">
+    <br><input type="submit" value="List Buckets">
 </fieldset>
 </form>
 
 
-<!-- 3. Upload -->
+<!-- 3. Upload (server local) object/file -->
 <form  method="POST" action="/bucket/file">
     <br>
     <fieldset>
-        <legend>3. Upload File</legend>
+        <legend>3. Upload Object / File</legend>
         <span class="required" >Bucket Name: </span><br>
         <input  size=100 placeholder ="Bucket Name" id ="bucketname" type="text" name ="bucketname"  value="" required>
         <br>
@@ -41,107 +41,45 @@
 </form>
 
 
-<!-- 4. List Objects -->    
-<form  method="GET" action="/objects">
+<!-- 4. List Objects in Bucket -->    
+<form  method="GET" action="/bucket/objects">
     <br>
     <fieldset>
-        <legend>4. List Objects</legend>
+        <legend>4. List Objects / Files in Bucket</legend>
         <span class="required" >Bucket Name: </span><br>
-        <input size=100 placeholder ="Bucket Name"  id ="bucket" type="text" name ="bucket"   >
-        <br><br><input    type="submit" value="List Objects">
+        <input size=100 placeholder ="Bucket Name"  id ="bucketname" type="text" name ="bucketname"   >
+        <br><br><input    type="submit" value="List Files">
     </fieldset>
 </form>
 
-<!-- 5. Delete Objects -->
-<form  method="GET" action="/sqs-queue/attributes">
-<br>
-<fieldset>
-    <legend>4. Get Queue Attributes</legend>
-    <span class="required" >Queue URL: </span><br>
-    <input  size=100 placeholder ="Queue Url" id ="queueurl" type="text" name ="queueurl"  value="" required>
-    <br><br><input   type="submit" value="Get Queue Attributes">
-</fieldset>
-</form>
 
-<!-- 5. Post Message to Queue -->    
-<form method="POST" action="/sqs-queue/message">
-<br>
-<fieldset>
-    <legend>5. Post Message To Queue</legend>
-    <span class="required" >Queue URL: </span><br>
-    <input  size=100 placeholder ="Queue Url"   id ="queueurl" type="text" name ="queueurl"  value="" required>
+
+<!-- 5. Delete object/ file -->
+<form  method="POST" action="/bucket/file/delete">
     <br>
-    <br><span class="required" >Message: </span><br>
-    <input size=100 placeholder ="Message"    id ="message" type="text" name="message"  value="" required>
-    <br><br><input   type="submit" value="Sent Message">
-</fieldset>
+    <fieldset>
+        <legend>5. Delete Object/File</legend>
+        <span class="required" >Bucket Name: </span><br>
+        <input  size=100 placeholder ="Bucket Name" id ="bucketname" type="text" name ="bucketname"  value="" required>
+        <br>
+        <span class="required" >File Name: </span><br>
+        <input  size=100 placeholder ="File Name" id ="filename" type="text" name ="filename"  value="" required>
+        <br><br><input type="submit" value="Delete Object">
+    </fieldset>
 </form>
 
-<!--6. Get Message from Queue -->    
-<form method="GET" action="/sqs-queue/message">
-<br>
-<fieldset>
-    <legend>6. Get Message From Queue</legend>
-    <span class="required" >Queue URL: </span><br>
-    <input size=100 placeholder ="Queue Url"    id ="queueurl" type="text" name ="queueurl"  value="" required>
-    <br><br><input   type="submit" value="Retrieve Message">
-</fieldset>
-</form>
 
-<!-- 7. Delete Message from Queue -->    
-<form  method="POST" action="/sqs-queue/message/delete">
-<br>
-<fieldset>
-    <legend>7. Delete Message From Queue</legend>
-    <span class="required" >Queue URL: </span><br>
-    <input  size=100 placeholder ="Queue Url"    id ="queueurl" type="text" name ="queueurl"  value="" required>
+<!-- 6. Delete Bucket -->
+<form method="POST" action="/bucket/delete">
     <br>
-    <br><span class="required" >Message Receipt Handle: </span><br>
-    <input  size=100 placeholder ="Message Receipt Handle"    id ="messagehandle" type="text" name ="messagehandle"  value="" required>
-    <br><br><input   type="submit" value="Delete Message">
-</fieldset>
+    <fieldset>
+       <legend>6. Delete Bucket</legend> 
+       <span class="required" >Bucket Name: </span><br>
+       <input size=100 placeholder ="Bucket Name"  id ="bucketname" type="text" name ="bucketname" required >
+        <br><br><input type="submit" value="Delete Bucket">
+    </fieldset>
 </form>
 
-<!-- 8. Purge Queue (delete all messsages) -->    
-<form  method="POST" action="/sqs-queue/purge">
-<br>
-<fieldset>
-    <legend>8. Purge Messages From Queue</legend>
-    <span class="required" >Queue URL: </span><br>
-    <input   size=100 placeholder ="Queue Url"   id ="queueurl" type="text" name ="queueurl"  value="" required>
-    <br><br><input   type="submit" value="PURGE Queue">
-</fieldset>
-</form>
-
-
-<!-- 9. Delete Queue (deletes queue and all messsages) -->    
-<form method="POST" action="/sqs-queue/delete">
-<br>
-<fieldset>
-    <legend>9. Delete Queue</legend>
-    <span class="required" >Queue URL: </span><br>
-    <input size=100 placeholder ="Queue Url"    id ="queueurl" type="text" name ="queueurl"  value="" required>
-    <br><br><input   type="submit" value="DELETE Queue">
-</fieldset>
-</form>
-
-
-<!-- 10. Set queue attributes  -->
-<form method="POST" action="/sqs/setqattr">
-<br>
-<fieldset>
-    <legend>10. Set Queue Policy</legend>
-    <span class="required" >Queue URL: </span><br>
-    <input  size=100 placeholder ="SQS Queue Url"    id ="sqsurl" type="text" name ="sqsurl"  required >
-    <br>
-    <br><span class="required" >Queue ARN: </span><br>
-    <input size=100 placeholder ="SQS Queue Arn"    id ="sqsarn" type="text" name ="sqsarn"   required >
-    <br>
-    <br><span class="required" >Topic ARN: </span><br>
-    <input size=100 placeholder ="SNS Topic Arn"    id ="snsarn" type="text" name ="snsarn"  required >
-    <br><br><input   type="submit" value="Set Queue Policy">
-</fieldset>
-</form>
 
 </body>
 
