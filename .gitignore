@@ -1,7 +1,6 @@
 .idea/
 .vscode
 node_modules/
-config.json
+config/aws-config.json
 .DS_Store
-package-lock.json
 uuid.json

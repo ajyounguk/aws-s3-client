@@ -1,11 +1,13 @@
 ## AWS S3 NodeJS Example / Demo code
 
 ## What is this?
-Demo code that excercises the AWS S3 functionality via the API
+Demo node.js app that excercises the AWS S3 functionality via the API
 
-## Contains
-- S3 server, with endpoints to trigger the relevant S3 API (app.js)
-- Test S3 HTML entry form (after running S3 server, point browser at localhost:9000)
+## Contains:
+/config = example aws credentials config file
+/controllers = s3Controller code with HTTP endpoints + AWS S3 API Code
+/public = s3 HTML test / demo app and style sheet
+app.js - main app, launch it and point browser to port 3000
 
 
 ### S3 Functionality:
@@ -16,28 +18,9 @@ Demo code that excercises the AWS S3 functionality via the API
 - Delete file/obj
 - Delete bucket
 
-## Acknowledgements
-CSS template inspired from: https://www.sanwebe.com/2014/08/css-html-forms-designs
-
 
 ## Installation overview
-Mac - install node :)
-or
-Linux - create an AWS EC2 or local ubuntu instance.
-update it with:
-```
-sudo su
-apt-get update
-apt-get upgrade -y
-apt-get dist-upgrade -y
-apt-get autoremove -y
-apt-get install nodejs npm git -y
-ln -s /usr/bin/nodejs /usr/bin/node
-```
-
-
-
-clone the repo and install it:
+clone the repo and install dependencies:
 
 ```
 git clone https://github.com/ajyounguk/aws-s3-demo
@@ -49,10 +32,10 @@ npm install
 ## Credentials
 Copy the configuration file and add your AWS creds to it:
 ```
-cp config-sample.json config.json
+cd config
+cp aws-config-sample.json aws-config.json
 ```
-
-(IAM user creds with group policy = AmazonS3SFullAccess works)
+*(IAM user creds with group policy = AmazonS3SFullAccess works)*
 
 
 ## How to run it
@@ -68,3 +51,6 @@ For more information on S3
 
 https://aws.amazon.com/s3/
 
+
+
+### EOF Readme..
