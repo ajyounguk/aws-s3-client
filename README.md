@@ -1,4 +1,4 @@
-## AWS S3 NodeJS Example / Demo code
+## AWS S3 Client
 
 ## What is this?
 A web client app that excercises the AWS S3 functionality via the API
