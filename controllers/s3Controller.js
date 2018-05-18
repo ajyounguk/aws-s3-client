@@ -1,15 +1,18 @@
-// AWS Controller
-
+// AWS S3 Client Controller
 module.exports = function (app) {
 
     // load the AWS SDK
-    var aws         = require('aws-sdk')
-    var fs          = require('fs')
+    var aws = require('aws-sdk')
+    var fs = require('fs')
+
+    var ui = {}
 
     // setup bodyparser
     var bodyParser = require('body-parser');
     app.use(bodyParser.json()); // support json encoded bodies
-    app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+    app.use(bodyParser.urlencoded({
+        extended: true
+    })); // support encoded bodies
 
     // load aws config
     aws.config.loadFromPath(__dirname + '/../config/aws-config.json')
@@ -18,140 +21,248 @@ module.exports = function (app) {
     var s3 = new aws.S3()
 
     // serve up main test page 
-    app.get('/',function(req,res) {
-        res.render(__dirname + '../public/s3test.html')
+    app.get('/', function (req, res) {
+
+        ui = {
+            menuitem: 1,
+            data: [],
+            def_bucket: '',
+            def_file: ''
+        }
+
+        ui.menuitem = 1
+
+        res.setHeader('Content-Type', 'text/html');
+        res.render('./index', {
+            ui: ui
+        })
+
     })
 
     // 1. Create Bucket
     app.post('/bucket', function (req, res) {
-    
+
+
+
+        ui.menuitem = 1
+        var date = new Date(Date.now())
+        ui.data[ui.menuitem] = {
+            "timestamp": date,
+            "status": '',
+            sdkResponse: ''
+        }
 
         var bucketname = req.body.bucketname
+        ui.def_bucket = bucketname
 
         var params = {
             Bucket: req.body.bucketname
         }
-    
-        s3.createBucket(params, function(err, data) {
+
+        s3.createBucket(params, function (err, data) {
+
             if (err) {
-                console.log('!!!(create bucket) Error creating bucket', err)
+                ui.data[ui.menuitem].status = 'ERROR'
+                ui.data[ui.menuitem].sdkResponse = err
                 res.status(500)
-                res.send(err)
             } else {
-                console.log('(create bucket) Created bucket', req.body.bucketname)
-                res.status(200)
-                res.send(data)
+                ui.data[ui.menuitem].status = 'SUCCESS'
+                ui.data[ui.menuitem].sdkResponse = data
+                res.status(201)
             }
-        
+
+            res.render('./index', {
+                ui: ui
+            })
         })
     })
 
 
     // 2. List Buckets
-    app.get('/bucket', function (req, res){
+    app.get('/bucket', function (req, res) {
 
-        s3.listBuckets(function(err, data) {
+        ui.menuitem = 2
+        var date = new Date(Date.now())
+        ui.data[ui.menuitem] = {
+            "timestamp": date,
+            "status": '',
+            sdkResponse: ''
+        }
+
+        s3.listBuckets(function (err, data) {
+
             if (err) {
-                console.log('!!!(list  bucket) Error', err)
+                ui.data[ui.menuitem].status = 'ERROR'
+                ui.data[ui.menuitem].sdkResponse = err
                 res.status(500)
-                res.send(err)
             } else {
-                console.log('(list buckets) returns:', data)
-                res.status(200)
-                res.send(data)
+                ui.data[ui.menuitem].status = 'SUCCESS'
+                ui.data[ui.menuitem].sdkResponse = data
+                res.status(201)
+
+                if (ui.def_bucket == '' && ui.data[ui.menuitem].status == 'SUCCESS') {
+                    ui.def_bucket = data.Buckets[1].Name
+                }
             }
+
+            res.render('./index', {
+                ui: ui
+            })
         })
     })
 
     // 3. Upload (local) file
-    app.post('/bucket/file', function  (req, res) {
+    app.post('/bucket/file', function (req, res) {
+
+        ui.menuitem = 3
+        var date = new Date(Date.now())
+        ui.data[ui.menuitem] = {
+            "timestamp": date,
+            "status": '',
+            sdkResponse: ''
+        }
+
+        ui.def_bucket = req.body.bucketname
+        ui.def_file = req.body.filename
 
         var params = {
-            Bucket: req.body.bucketname, Key: '', Body: ''};
+            Bucket: req.body.bucketname,
+            Key: '',
+            Body: ''
+        };
 
-        var filestream = fs.createReadStream(__dirname + '/../'+ req.body.filename)
-
-        filestream.on('error', function (err) {
-            console.log('!!!!(upload file) Error',err)
-            res.status(500)
-            res.end()
-        })
+        var filestream = fs.createReadStream(__dirname + '/../' + req.body.filename)
 
         params.Body = filestream
         params.Key = req.body.filename
 
-        s3.upload (params, function (err, data) {
+        s3.upload(params, function (err, data) {
+
             if (err) {
-                console.log('!!!(upload file) Error uploading file', err)
+                ui.data[ui.menuitem].status = 'ERROR'
+                ui.data[ui.menuitem].sdkResponse = err
                 res.status(500)
-                res.send(err)
             } else {
-                console.log('(upload file) File', req.body.filename, 'uploaded to s3')
-                res.status(200)
-                res.send(data)
+                ui.data[ui.menuitem].status = 'SUCCESS'
+                ui.data[ui.menuitem].sdkResponse = data
+                res.status(201)
             }
+
+            res.render('./index', {
+                ui: ui
+            })
+
         })
+
+
+
     })
 
 
     // 4. List Objects in Bucket
     app.get('/bucket/objects', function (req, res) {
 
-        var params = {
-            Bucket : req.query.bucketname
-        } 
+        ui.menuitem = 4
+        var date = new Date(Date.now())
+        ui.data[ui.menuitem] = {
+            "timestamp": date,
+            "status": '',
+            sdkResponse: ''
+        }
 
-        s3.listObjects(params, function(err, data) {
+        var params = {
+            Bucket: req.query.bucketname
+        }
+
+        s3.listObjects(params, function (err, data) {
+
+
             if (err) {
-                console.log('!!!(list objects) Error listing objects', err)
+                ui.data[ui.menuitem].status = 'ERROR'
+                ui.data[ui.menuitem].sdkResponse = err
                 res.status(500)
-                res.send(err)
             } else {
-                console.log('(list objects) Objects in bucket', req.query.bucketname +':')
-                res.status(200)
-                res.send(data)
+                ui.data[ui.menuitem].status = 'SUCCESS'
+                ui.data[ui.menuitem].sdkResponse = data
+                res.status(201)
             }
+
+            res.render('./index', {
+                ui: ui
+            })
         })
     })
 
     // 5. Delete object
     app.post('/bucket/file/delete', function (req, res) {
 
+        ui.menuitem = 5
+        var date = new Date(Date.now())
+        ui.data[ui.menuitem] = {
+            "timestamp": date,
+            "status": '',
+            sdkResponse: ''
+        }
+
         var params = {
-            Bucket: req.body.bucketname, 
+            Bucket: req.body.bucketname,
             Key: req.body.filename
         }
 
-        s3.deleteObject(params, function(err, data) {
+        ui.def_bucket = req.body.bucketname
+        ui.def_file = req.body.filename
+
+        s3.deleteObject(params, function (err, data) {
+
             if (err) {
-                console.log('!!!(delete object) Error deleting object', err)
+                ui.data[ui.menuitem].status = 'ERROR'
+                ui.data[ui.menuitem].sdkResponse = err
                 res.status(500)
-                res.send(err)
             } else {
-                console.log('(delete object) Object', req.body.filename,'in bucket', req.body.bucketname, 'deleted')
-                res.status(200)
-                res.send(data)
+                ui.data[ui.menuitem].status = 'SUCCESS'
+                ui.data[ui.menuitem].sdkResponse = data
+                res.status(201)
             }
-    })
+
+            res.render('./index', {
+                ui: ui
+            })
+        })
     })
 
     // 6. Delete Bucket
     app.post('/bucket/delete', function (req, res) {
 
+        ui.menuitem = 6
+        var date = new Date(Date.now())
+        ui.data[ui.menuitem] = {
+            "timestamp": date,
+            "status": '',
+            sdkResponse: ''
+        }
+
         var params = {
             Bucket: req.body.bucketname
         }
 
-        s3.deleteBucket(params, function(err, data) {
+        ui.def_bucket = req.body.bucketname
+
+        s3.deleteBucket(params, function (err, data) {
+
             if (err) {
-                console.log('!!!(delete bucket) Error deleting object', err)
+                ui.data[ui.menuitem].status = 'ERROR'
+                ui.data[ui.menuitem].sdkResponse = err
                 res.status(500)
-                res.send(err)
             } else {
-                console.log('(delete bucket) Bucket', req.query.bucketname, 'deleted')
-                res.status(200)
-                res.send(data)
+                ui.data[ui.menuitem].status = 'SUCCESS'
+                ui.data[ui.menuitem].sdkResponse = data
+                res.status(201)
             }
-    })
+
+            res.render('./index', {
+                ui: ui
+            })
+
+        })
     })
 }

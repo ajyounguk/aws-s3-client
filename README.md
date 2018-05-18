@@ -1,19 +1,22 @@
 ## AWS S3 NodeJS Example / Demo code
 
 ## What is this?
-Demo node.js app that excercises the AWS S3 functionality via the API
+A web client app that excercises the AWS S3 functionality via the API
+
+![Alt text](/screenshots/s3upload.png)
 
 ## Contains:
 /config = example aws credentials config file
-/controllers = s3Controller code with HTTP endpoints + AWS S3 API Code
-/public = s3 HTML test / demo app and style sheet
+/controllers = s3Controller for UI and AWS SKD calls
+/public = style sheet
+/views = ejs UI 
 app.js - main app, launch it and point browser to port 3000
 
 
 ### S3 Functionality:
 - Create Bucket
 - List Buckets
-- Upload (server local) file/obj to bucket
+- Upload (local) file/obj to bucket
 - List files/objs in bucket
 - Delete file/obj
 - Delete bucket
@@ -24,7 +27,7 @@ clone the repo and install dependencies:
 
 ```
 git clone https://github.com/ajyounguk/aws-s3-demo
-cd aws-s3-demo
+cd aws-s3-client
 npm install
 ```
 
@@ -45,7 +48,7 @@ run the server:
 node app.js
 ```
 
-point browser at (localIP/remoteIP) port 8888 (SQS) to load the test harness
+point browser at (localIP/remoteIP) port 3000
 
 For more information on S3
 

@@ -1,0 +1,32 @@
+<!-- Menu & Navigation partial -->
+
+<div class="titlediv">
+    <input class="menu-button" type="submit" value="Create Bucket" onclick="displayOption('1')">
+    <input class="menu-button" type="submit" value="List Buckets" onclick="displayOption('2')">
+    <input class="menu-button" type="submit" value="Upload" onclick="displayOption('3')">
+    <input class="menu-button" type="submit" value="View Objects" onclick="displayOption('4')">
+    <input class="menu-button" type="submit" value="Delete Object" onclick="displayOption('5')">
+    <input class="menu-button" type="submit" value="Delete Bucket" onclick="displayOption('6')">
+    <input type="button" onclick="location.href='/';" value="Reset" />
+</div>
+
+
+<script>
+    function displayOption(activeOption) {
+
+        activeOption--;
+        var i;
+        var activediv = document.getElementsByClassName("menu-div");
+        var activebutton = document.getElementsByClassName("menu-button");
+
+        for (i = 0; i < activediv.length; i++) {
+            if (i == activeOption) {
+                activediv[i].style.display = "block";
+                activebutton[i].style.background = "rgb(0, 9, 12)";
+            } else {
+                activediv[i].style.display = "none";
+                activebutton[i].style.background = "";
+            }
+        }
+    }
+</script>
