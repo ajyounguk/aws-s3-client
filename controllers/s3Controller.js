@@ -265,4 +265,59 @@ module.exports = function (app) {
 
         })
     })
+
+
+
+    // 7. Presigned URLS
+    app.post('/bucket/presign', function (req, res) {
+
+        ui.menuitem = 7
+
+        var date = new Date(Date.now())
+        ui.data[ui.menuitem] = { 
+            "timestamp": date,
+            "status": '',
+            sdkResponse: ''
+        }
+
+        ui.def_bucket = req.body.bucketname
+        ui.def_file = req.body.filename
+
+        var params = {
+            Bucket: req.body.bucketname,
+            Key: req.body.filename,
+            Expires: signedUrlExpireSeconds
+        }
+
+        var signedUrlExpireSeconds = 60 * 1 // 1 minute..
+
+        var geturl = s3.getSignedUrl('getObject', params)
+
+        var puturl = s3.getSignedUrl('putObject', params)
+
+        var deleteurl = s3.getSignedUrl('deleteObject', params)
+
+
+        ui.data[ui.menuitem].status = 'SUCCESS'
+        ui.data[ui.menuitem].sdkResponse = {
+            getURL: geturl,
+            putURL: puturl,
+            deleteURL: deleteurl
+        }
+
+        res.status(201)
+
+
+        res.render('./index', {
+            ui: ui
+        })
+
+
+    })
+
+
+
+
+
+
 }
