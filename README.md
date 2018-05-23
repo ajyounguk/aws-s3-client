@@ -20,6 +20,7 @@ app.js - main app, launch it and point browser to port 3000
 - List files/objs in bucket
 - Delete file/obj
 - Delete bucket
+- Create Signed URLs (proto)
 
 
 ## Installation overview
