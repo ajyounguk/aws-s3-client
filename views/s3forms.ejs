@@ -10,8 +10,9 @@
         <br>
         <input type="submit" value="Create Bucket">
         <br>
+        <br>
         <label>Response:</label>
-        <textarea name="response" id="response" readonly>
+        <textarea name="response" id="response" class="medium" readonly>
 <%= JSON.stringify(ui.data[1],null, 3) %>
         </textarea>
 
@@ -27,8 +28,9 @@
         <br>
         <input type="submit" value="List Buckets">
         <br>
+        <br>
         <label>Response:</label>
-        <textarea name="response" id="response" readonly>
+        <textarea name="response" id="response" class="medium" readonly>
 <%= JSON.stringify(ui.data[2],null, 3) %>
         </textarea>
     </form>
@@ -45,15 +47,16 @@
         <label>Bucket Name: </label>
         <input size=100 placeholder="Bucket Name" id="bucketname" type="text" name="bucketname" value="<%= ui.def_bucket %>" required>
         <br>
+        <br>
         <label>File Name: </label>
         <input size=100 placeholder="File Name" id="filename" type="text" name="filename" value="<%= ui.def_file %>" required>
         <br>
         <br>
         <input type="submit" value="Upload">
-
+        <br>
         <br>
         <label>Response:</label>
-        <textarea name="response" id="response" readonly>
+        <textarea name="response" id="response" class="medium" readonly>
 <%= JSON.stringify(ui.data[3],null, 3) %>
         </textarea>
     </form>
@@ -72,10 +75,10 @@
         <br>
         <br>
         <input type="submit" value="List Files">
-
+        <br>
         <br>
         <label>Response:</label>
-        <textarea name="response" id="response" readonly>
+        <textarea name="response" id="response" class="medium" readonly>
 <%= JSON.stringify(ui.data[4],null, 3) %>
         </textarea>
     </form>
@@ -93,15 +96,16 @@
         <label>Bucket Name: </label>
         <input size=100 placeholder="Bucket Name" id="bucketname" type="text" name="bucketname" value="<%= ui.def_bucket %>" required>
         <br>
+        <br>
         <label>File Name: </label>
         <input size=100 placeholder="File Name" id="filename" type="text" name="filename" value="<%= ui.def_file %>" required>
         <br>
         <br>
         <input type="submit" value="Delete File">
-
+        <br>
         <br>
         <label>Response:</label>
-        <textarea name="response" id="response" readonly>
+        <textarea name="response" id="response" class="medium" readonly>
 <%= JSON.stringify(ui.data[5],null, 3) %>
         </textarea>
     </form>
@@ -120,10 +124,10 @@
         <br>
         <br>
         <input type="submit" value="Delete Bucket">
-
+        <br>
         <br>
         <label>Response:</label>
-        <textarea name="response" id="response" readonly>
+        <textarea name="response" id="response" class="medium" readonly>
 <%= JSON.stringify(ui.data[6],null, 3) %>
         </textarea>
     </form>
@@ -148,8 +152,10 @@
         <br>
         <input type="submit" value="Sign URLs">
         <br>
+        <br>
+
         <label>Response:</label>
-        <textarea name="response" id="response" readonly>
+        <textarea name="response" id="response" class="medium" readonly>
 <%= JSON.stringify(ui.data[7],null, 3) %>
         </textarea>
     </form>
