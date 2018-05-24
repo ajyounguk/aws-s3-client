@@ -5,3 +5,6 @@ config/aws-config.json
 .DS_Store
 uuid.json
 views/fragment.ejs
+config/aws-override.json
+config/real-aws-config.json
+config/no-aws-override.json
