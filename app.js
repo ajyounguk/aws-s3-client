@@ -1,6 +1,6 @@
 // AWS S3 API demo
 
-// load the AWS SDK
+// load the express framework
 var express = require('express')
 var app = express()
 

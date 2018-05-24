@@ -17,8 +17,43 @@ module.exports = function (app) {
     // load aws config
     aws.config.loadFromPath(__dirname + '/../config/aws-config.json')
 
-    // create the aws service object
-    var s3 = new aws.S3()
+    console.log(__dirname)
+
+    // load and override endpoints (if config file exists)
+    var configFile = null
+    try {
+        configFile = fs.readFileSync(__dirname + '/../config/aws-override.json', 'utf8');
+    } catch (err) {
+        if (err.code === 'ENOENT') {
+            console.log("No local AWS endpoint config found, using dafault route to AWS")
+        } else {
+            throw (err)
+        }
+    }
+
+
+    // if found, parse override config
+    if (configFile) {
+        overrides = JSON.parse(configFile)
+
+        console.log('Overriding AWS S3 endpoint to:', overrides.s3_endpoint)
+
+        aws.config.s3 = {
+            'endpoint': overrides.s3_endpoint
+        }
+    }
+
+
+    // ! there seems to be a localstack feature that requires the "s3ForcePathStyle: true" param. set below../
+    // ! since the sdk prefixes the s3 endpoint with the bucket name
+    // ! and that doesn't resolve locally (e.g: http://mybucket.localhost:4572 - whereby http://locahost:4572 would 
+    // ! work correctly pointing to the localstack endpoint..) the se builder param seems to fix this..
+    // ! see: https://github.com/localstack/localstack/issues/43
+    // ! also tested with AWS and it works so lets keep it..
+
+    var s3 = new aws.S3({
+        s3ForcePathStyle: true
+    });
 
     // serve up main test page 
     app.get('/', function (req, res) {
@@ -41,8 +76,6 @@ module.exports = function (app) {
 
     // 1. Create Bucket
     app.post('/bucket', function (req, res) {
-
-
 
         ui.menuitem = 1
         var date = new Date(Date.now())
@@ -274,7 +307,7 @@ module.exports = function (app) {
         ui.menuitem = 7
 
         var date = new Date(Date.now())
-        ui.data[ui.menuitem] = { 
+        ui.data[ui.menuitem] = {
             "timestamp": date,
             "status": '',
             sdkResponse: ''

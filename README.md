@@ -6,11 +6,11 @@ A web client app that excercises the AWS S3 functionality via the API
 ![Alt text](/screenshots/s3upload.png)
 
 ## Contains:
-/config = example aws credentials config file
-/controllers = s3Controller for UI and AWS SKD calls
-/public = style sheet
-/views = ejs UI 
-app.js - main app, launch it and point browser to port 3000
+- /config = example aws creds config file and example endpoint override (optional) config file
+- /controllers = s3Controller for UI and AWS SKD calls
+- /public = style sheet
+- /views = ejs UI 
+- app.js - main app, launch it and point browser to port 3000
 
 
 ### S3 Functionality:
@@ -40,6 +40,16 @@ cd config
 cp aws-config-sample.json aws-config.json
 ```
 *(IAM user creds with group policy = AmazonS3SFullAccess works)*
+
+
+## Overrride Amazon SNS/SQS endpoints
+If you need to route your request to a proxy, or want to route s3 requests to a local pseudo AWS service (e.g. goaws or localStack) you can override endopoints by creating a aws-override.json config file:
+```
+cd config
+cp aws-override-sample.json aws-override.json
+
+and edit the endpoints in the file if needed
+```
 
 
 ## How to run it
