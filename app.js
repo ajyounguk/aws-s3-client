@@ -17,7 +17,7 @@ var s3Controller = require('./controllers/s3Controller')
 s3Controller(app)
 
 // Start server.
-console.log('AWS S3 Demo listening on port', port);
+console.log('AWS S3 Client listening on port', port);
 
 app.listen(port)
 
