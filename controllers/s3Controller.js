@@ -62,7 +62,7 @@ module.exports = function (app) {
             menuitem: 1,
             data: [],
             def_bucket: '',
-            def_file: ''
+            def_file: 'cat.jpg'
         }
 
         ui.menuitem = 1
@@ -133,8 +133,10 @@ module.exports = function (app) {
                 ui.data[ui.menuitem].sdkResponse = data
                 res.status(201)
 
-                if (ui.def_bucket == '' && ui.data[ui.menuitem].status == 'SUCCESS') {
-                    ui.def_bucket = data.Buckets[1].Name
+                if (ui.def_bucket == '' && data.Buckets[0])  {
+                    ui.def_bucket = data.Buckets[0].Name
+                } else {
+                    ui.def_bucket = ''
                 }
             }
 
@@ -322,7 +324,7 @@ module.exports = function (app) {
             Expires: signedUrlExpireSeconds
         }
 
-        var signedUrlExpireSeconds = 60 * 1 // 1 minute..
+        var signedUrlExpireSeconds = 60 * 60 * 24 * 10 // 60 seconds x 60 = 1 hour x 24 = 1 day x 10 = 10 days
 
         var geturl = s3.getSignedUrl('getObject', params)
 

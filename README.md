@@ -16,7 +16,7 @@ A web client app that excercises the AWS S3 functionality via the API
 ### S3 Functionality:
 - Create Bucket
 - List Buckets
-- Upload (local) file/obj to bucket
+- Upload (local) file/obj to bucket. Default Local file cat.jpg included in repo for your viewing pleasure! :)
 - List files/objs in bucket
 - Delete file/obj
 - Delete bucket
