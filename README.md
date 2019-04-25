@@ -42,7 +42,7 @@ cp aws-config-sample.json aws-config.json
 *(IAM user creds with group policy = AmazonS3SFullAccess works)*
 
 
-## Overrride Amazon SNS/SQS endpoints
+## Overrride Amazon S3 endpoints
 If you need to route your request to a proxy, or want to route s3 requests to a local pseudo AWS service (e.g. goaws or localStack) you can override endopoints by creating a aws-override.json config file:
 ```
 cd config
