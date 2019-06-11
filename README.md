@@ -38,6 +38,9 @@ Copy the configuration file and add your AWS creds to it:
 ```
 cd config
 cp aws-config-sample.json aws-config.json
+
+** please take care and don't commit your creds back to git **
+
 ```
 *(IAM user creds with group policy = AmazonS3SFullAccess works)*
 
