@@ -8,4 +8,5 @@ views/fragment.ejs
 config/aws-override.json
 config/real-aws-config.json
 config/no-aws-override.json
+package-lock.json
 
