@@ -23,7 +23,7 @@
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "ejs-lint": "^0.3.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "fs": "0.0.1-security"
   },
   "devDependencies": {
