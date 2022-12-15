@@ -19,14 +19,13 @@
   },
   "homepage": "https://github.com/ajyounguk/aws-s3-demo#readme",
   "dependencies": {
-    "aws-sdk": "^2.904.0",
+    "aws-sdk": "^2.1275.0",
     "body-parser": "^1.18.3",
-    "ejs": "^2.6.1",
-    "ejs-lint": "^0.3.0",
-    "express": "^4.16.4",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
     "fs": "0.0.1-security"
   },
   "devDependencies": {
-    "ejs-lint": "^0.3.0"
+    "ejs-lint": "^2.0.0"
   }
 }
