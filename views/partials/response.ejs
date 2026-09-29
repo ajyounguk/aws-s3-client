@@ -1,0 +1,28 @@
+<section class="card response" aria-labelledby="response-title">
+    <div class="response-head">
+        <h2 id="response-title">Response</h2>
+        <% if (result) { %>
+        <span class="status <%= result.ok ? 'status-ok' : 'status-err' %>">
+            <%= result.status %> <%= result.ok ? (statusText(result.status) || 'OK') : result.body.name %>
+        </span>
+        <time class="stamp" datetime="<%= result.timestamp %>"><%= result.timestamp.replace('T', ' ').replace(/\.\d+Z$/, ' UTC') %></time>
+        <button type="button" class="btn btn-ghost btn-small copy" data-copy-target="response-json">Copy</button>
+        <% } %>
+    </div>
+
+    <% if (result) { %>
+    <pre class="json"><code id="response-json"><%= JSON.stringify(result.body, null, 2) %></code></pre>
+    <footer class="response-foot">
+        <% if (result.requestId) { %>
+        <span>Request ID <code><%= result.requestId %></code></span>
+        <% } else { %>
+        <span class="muted">No AWS request ID (not sent to AWS)</span>
+        <% } %>
+        <% if (result.extendedRequestId) { %>
+        <span class="ext-id">Extended ID <code><%= result.extendedRequestId %></code></span>
+        <% } %>
+    </footer>
+    <% } else { %>
+    <p class="muted empty">Nothing yet. Run an action to see the response here.</p>
+    <% } %>
+</section>

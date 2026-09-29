@@ -1,0 +1,74 @@
+<section class="card" aria-labelledby="form-title">
+<% if (view === 'create') { %>
+    <h1 id="form-title">Create Bucket</h1>
+    <p class="hint">Bucket names are global across all AWS accounts. The bucket is created in the region shown in the sidebar.</p>
+    <form method="POST" action="/bucket">
+        <label for="create-bucket">Bucket name</label>
+        <input id="create-bucket" type="text" name="bucketname" value="<%= form.bucket %>" placeholder="my-bucket" required autocomplete="off" spellcheck="false">
+        <div class="actions"><button type="submit" class="btn">Create bucket</button></div>
+    </form>
+
+<% } else if (view === 'list') { %>
+    <h1 id="form-title">List Buckets</h1>
+    <p class="hint">Lists every bucket the current credentials can see, across all pages.</p>
+    <form method="GET" action="/bucket">
+        <div class="actions"><button type="submit" class="btn">List buckets</button></div>
+    </form>
+
+<% } else if (view === 'upload') { %>
+    <h1 id="form-title">Upload Object</h1>
+    <p class="hint">Uploads a file from the server's <code>samples/</code> folder. The object key is the file name.</p>
+    <form method="POST" action="/bucket/file">
+        <label for="upload-bucket">Bucket name</label>
+        <input id="upload-bucket" type="text" name="bucketname" value="<%= form.bucket %>" placeholder="my-bucket" required autocomplete="off" spellcheck="false">
+        <label for="upload-file">File name</label>
+        <input id="upload-file" type="text" name="filename" value="<%= form.file %>" list="sample-files" required autocomplete="off" spellcheck="false">
+        <datalist id="sample-files">
+            <% samples.forEach(function (s) { %><option value="<%= s %>"></option><% }) %>
+        </datalist>
+        <div class="actions"><button type="submit" class="btn">Upload</button></div>
+    </form>
+
+<% } else if (view === 'objects') { %>
+    <h1 id="form-title">List Objects</h1>
+    <p class="hint">Lists objects in a bucket, across all pages (capped at 5,000).</p>
+    <form method="GET" action="/bucket/objects">
+        <label for="objects-bucket">Bucket name</label>
+        <input id="objects-bucket" type="text" name="bucketname" value="<%= form.bucket %>" placeholder="my-bucket" required autocomplete="off" spellcheck="false">
+        <div class="actions"><button type="submit" class="btn">List objects</button></div>
+    </form>
+
+<% } else if (view === 'delete-object') { %>
+    <h1 id="form-title">Delete Object</h1>
+    <p class="hint warn">Permanently deletes the object (unless the bucket is versioned).</p>
+    <form method="POST" action="/bucket/file/delete" data-confirm="Delete object &quot;{key}&quot; from bucket &quot;{bucketname}&quot;?">
+        <label for="delobj-bucket">Bucket name</label>
+        <input id="delobj-bucket" type="text" name="bucketname" value="<%= form.bucket %>" placeholder="my-bucket" required autocomplete="off" spellcheck="false">
+        <label for="delobj-key">Object key</label>
+        <input id="delobj-key" type="text" name="key" value="<%= form.key %>" required autocomplete="off" spellcheck="false">
+        <div class="actions"><button type="submit" class="btn btn-danger">Delete object</button></div>
+    </form>
+
+<% } else if (view === 'delete-bucket') { %>
+    <h1 id="form-title">Delete Bucket</h1>
+    <p class="hint warn">The bucket must be empty. This can't be undone, and the name may be taken by someone else afterwards.</p>
+    <form method="POST" action="/bucket/delete" data-confirm="Delete bucket &quot;{bucketname}&quot;?">
+        <label for="delbucket-bucket">Bucket name</label>
+        <input id="delbucket-bucket" type="text" name="bucketname" value="<%= form.bucket %>" placeholder="my-bucket" required autocomplete="off" spellcheck="false">
+        <div class="actions"><button type="submit" class="btn btn-danger">Delete bucket</button></div>
+    </form>
+
+<% } else if (view === 'presign') { %>
+    <h1 id="form-title">Presigned URLs</h1>
+    <p class="hint">Signs GET, PUT and DELETE URLs locally. Anyone holding a URL can use it until it expires, so treat them like credentials. URLs signed with temporary credentials stop working when those credentials expire.</p>
+    <form method="POST" action="/bucket/presign">
+        <label for="presign-bucket">Bucket name</label>
+        <input id="presign-bucket" type="text" name="bucketname" value="<%= form.bucket %>" placeholder="my-bucket" required autocomplete="off" spellcheck="false">
+        <label for="presign-key">Object key</label>
+        <input id="presign-key" type="text" name="key" value="<%= form.key %>" required autocomplete="off" spellcheck="false">
+        <label for="presign-expires">Expires in (seconds, max 604800)</label>
+        <input id="presign-expires" type="number" name="expires" value="<%= form.expires %>" min="1" max="604800" step="1">
+        <div class="actions"><button type="submit" class="btn">Sign URLs</button></div>
+    </form>
+<% } %>
+</section>
