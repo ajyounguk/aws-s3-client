@@ -1,31 +1,40 @@
 {
-  "name": "aws-s3-demo",
-  "version": "1.0.0",
-  "description": "## What is this? Demo code that excercises the AWS SNS & SQS functionality via the API",
+  "name": "aws-s3-client",
+  "version": "2.0.0",
+  "description": "A small local web UI that exercises the AWS S3 API (create/list/delete buckets, upload/list/delete objects, presigned URLs)",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ajyounguk/aws-s3-demo.git"
+    "url": "git+https://github.com/ajyounguk/aws-s3-client.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "aws",
+    "s3",
+    "sdk-v3",
+    "express",
+    "localstack"
+  ],
+  "author": "Andrew Young",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ajyounguk/aws-s3-demo/issues"
+    "url": "https://github.com/ajyounguk/aws-s3-client/issues"
   },
-  "homepage": "https://github.com/ajyounguk/aws-s3-demo#readme",
+  "homepage": "https://github.com/ajyounguk/aws-s3-client#readme",
   "dependencies": {
-    "aws-sdk": "^2.1275.0",
-    "body-parser": "^1.18.3",
-    "ejs": "^3.1.8",
-    "express": "^4.18.2",
-    "fs": "0.0.1-security"
+    "@aws-sdk/client-s3": "^3.1142.0",
+    "@aws-sdk/s3-request-presigner": "^3.1142.0",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
   },
   "devDependencies": {
-    "ejs-lint": "^2.0.0"
+    "aws-sdk-client-mock": "^4.1.0",
+    "supertest": "^7.3.0"
   }
 }

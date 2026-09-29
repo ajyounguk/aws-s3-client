@@ -1,0 +1,27 @@
+<%
+const envLabels = { aws: 'AWS', local: 'Local', custom: 'Custom endpoint' }
+const envTitle = env.endpoint ? 'Endpoint: ' + env.endpoint : 'Default AWS endpoints'
+%>
+<aside class="sidebar">
+    <div class="brand">
+        <span class="brand-mark" aria-hidden="true">S3</span>
+        <span class="brand-name">S3 Client</span>
+    </div>
+
+    <div class="env env-<%= env.kind %>" title="<%= envTitle %>">
+        <span class="env-dot" aria-hidden="true"></span>
+        <span class="env-kind"><%= envLabels[env.kind] || env.kind %></span>
+        <span class="env-region"><%= env.region %></span>
+    </div>
+
+    <nav class="nav" aria-label="S3 actions">
+        <% views.forEach(function (v) { %>
+        <a class="nav-link<%= v.id === view ? ' active' : '' %><%= v.destructive ? ' danger' : '' %>"
+           href="/?view=<%= v.id %>"<% if (v.id === view) { %> aria-current="page"<% } %>><%= v.label %></a>
+        <% }) %>
+    </nav>
+
+    <form class="reset" method="POST" action="/reset">
+        <button type="submit" class="btn btn-ghost">Reset</button>
+    </form>
+</aside>

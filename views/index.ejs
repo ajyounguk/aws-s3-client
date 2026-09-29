@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="/assets/styles.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <title>S3 Client</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="/assets/app.js" defer></script>
 </head>
 
-<body class="simple-style" onLoad="displayOption('<%=ui.menuitem %>')">
-
-  
-
-
-   
-
-    <%- include('navbar.ejs'); %>
-    <%- include('s3forms.ejs'); %>
+<body>
+    <div class="layout">
+        <%- include('partials/sidebar') %>
+        <main class="content">
+            <%- include('partials/forms') %>
+            <%- include('partials/response') %>
+        </main>
+    </div>
 </body>
 
 </html>
