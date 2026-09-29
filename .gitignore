@@ -1,12 +1,15 @@
 .idea/
 .vscode
 node_modules/
-config/aws-config.json
 .DS_Store
 uuid.json
 views/fragment.ejs
+
+# local credentials and endpoint overrides - never commit
+config/aws-config.json
 config/aws-override.json
 config/real-aws-config.json
 config/no-aws-override.json
-package-lock.json
-
+.env
+.env.*
+*.pem
