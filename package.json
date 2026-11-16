@@ -28,13 +28,13 @@
   },
   "homepage": "https://github.com/ajyounguk/aws-s3-client#readme",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1142.0",
-    "@aws-sdk/s3-request-presigner": "^3.1142.0",
-    "ejs": "^6.0.1",
-    "express": "^5.2.1"
+    "@aws-sdk/client-s3": "^3.1169.0",
+    "@aws-sdk/s3-request-presigner": "^3.1169.0",
+    "ejs": "^7.0.2",
+    "express": "^5.3.0"
   },
   "devDependencies": {
     "aws-sdk-client-mock": "^4.1.0",
-    "supertest": "^7.3.0"
+    "supertest": "^7.3.2"
   }
 }
